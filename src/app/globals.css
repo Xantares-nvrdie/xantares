@@ -48,7 +48,7 @@
 
 :root {
 	--radius: 0.625rem;
-	--background: oklch(1 0 0);
+	--background: oklch(0.98 0 0);
 	--foreground: oklch(0.145 0 0);
 	--card: oklch(1 0 0);
 	--card-foreground: oklch(0.145 0 0);
@@ -82,7 +82,7 @@
 }
 
 .dark {
-	--background: oklch(0.145 0 0);
+	--background: oklch(0.08 0.02 260);
 	--foreground: oklch(0.985 0 0);
 	--card: oklch(0.205 0 0);
 	--card-foreground: oklch(0.985 0 0);
@@ -121,5 +121,6 @@
 	}
 	body {
 		@apply bg-background text-foreground;
+		margin: 0;
 	}
 }

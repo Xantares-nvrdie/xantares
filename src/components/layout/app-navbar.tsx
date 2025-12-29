@@ -1,5 +1,8 @@
 'use client'
 
+import { useState } from 'react'
+import { useTheme } from 'next-themes'
+
 import {
 	Navbar,
 	NavBody,
@@ -8,39 +11,64 @@ import {
 	MobileNavHeader,
 	MobileNavMenu,
 	MobileNavToggle,
-	NavbarLogo,
-	NavbarButton
+	NavbarLogo
 } from '@/components/ui/resizable-navbar'
-import { useState } from 'react'
+
+import { ThemeToggleButton } from '@/components/ui/theme-button'
 
 const navItems = [
 	{ name: 'Home', link: '/' },
 	{ name: 'Features', link: '/features' },
-	{ name: 'Pricing', link: '/pricing' }
+	{ name: 'About Me', link: '/about' }
 ]
 
 export default function AppNavbar() {
 	const [open, setOpen] = useState(false)
+	const { theme, setTheme } = useTheme()
+
+	const currentTheme = theme === 'dark' ? 'dark' : 'light'
 
 	return (
-		<Navbar>
-			{/* DESKTOP */}
+		<Navbar className="absolute top-0 left-0 z-50 w-full bg-transparent">
 			<NavBody>
 				<NavbarLogo />
 				<NavItems items={navItems} />
-				<NavbarButton variant="primary">Sign Up</NavbarButton>
+
+				<div className="ml-auto flex items-center gap-2">
+					<ThemeToggleButton
+						theme={currentTheme}
+						variant="circle-blur"
+						start="top-right"
+						onClick={() => setTheme(currentTheme === 'dark' ? 'light' : 'dark')}
+					/>
+				</div>
 			</NavBody>
 
-			{/* MOBILE */}
+			{/* HAPUS isOpen={open} DARI SINI */}
 			<MobileNav>
 				<MobileNavHeader>
 					<NavbarLogo />
-					<MobileNavToggle isOpen={open} onClick={() => setOpen(!open)} />
+
+					<div className="flex items-center gap-2">
+						<ThemeToggleButton
+							theme={currentTheme}
+							variant="circle-blur"
+							start="top-right"
+							onClick={() => setTheme(currentTheme === 'dark' ? 'light' : 'dark')}
+						/>
+
+						<MobileNavToggle isOpen={open} onClick={() => setOpen(!open)} />
+					</div>
 				</MobileNavHeader>
 
 				<MobileNavMenu isOpen={open} onClose={() => setOpen(false)}>
 					{navItems.map((item) => (
-						<a key={item.name} href={item.link}>
+						<a
+							key={item.name}
+							href={item.link}
+							className="text-sm font-medium"
+							onClick={() => setOpen(false)}
+						>
 							{item.name}
 						</a>
 					))}
