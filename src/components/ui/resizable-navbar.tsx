@@ -78,7 +78,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
 	return (
 		<motion.div
 			animate={{
-				backdropFilter: visible ? 'blur(10px)' : 'none',
+				backdropFilter: visible ? 'blur(16px)' : 'none',
 				boxShadow: visible
 					? '0 0 24px rgba(34, 42, 53, 0.06), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.04), 0 0 4px rgba(34, 42, 53, 0.08), 0 16px 68px rgba(47, 48, 55, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1) inset'
 					: 'none',
@@ -95,7 +95,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
 			}}
 			className={cn(
 				'relative z-60 mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 lg:flex dark:bg-transparent',
-				visible && 'bg-white/80 dark:bg-neutral-950/80',
+				visible && 'bg-white/80 dark:bg-neutral-950/20',
 				className
 			)}
 		>
@@ -184,8 +184,6 @@ export const MobileNavMenu = ({ children, className, isOpen, onClose }: MobileNa
 						ease: 'easeInOut'
 					}}
 					className={cn(
-						// HAPUS: 'absolute inset-x-0 top-16' (agar container bisa ikut membesar)
-						// TAMBAH: 'overflow-hidden' (wajib agar animasi height berjalan mulus)
 						'mt-4 flex w-full flex-col gap-4 overflow-hidden rounded-xl bg-white p-4 shadow-xl dark:bg-neutral-950',
 						className
 					)}
