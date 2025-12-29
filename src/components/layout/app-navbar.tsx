@@ -29,7 +29,7 @@ export default function AppNavbar() {
 	const currentTheme = theme === 'dark' ? 'dark' : 'light'
 
 	return (
-		<Navbar className="absolute top-0 left-0 z-50 w-full bg-transparent">
+		<Navbar className="fixed top-5 left-0 z-50 w-full bg-transparent">
 			<NavBody>
 				<NavbarLogo />
 				<NavItems items={navItems} />
