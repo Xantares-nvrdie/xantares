@@ -239,9 +239,13 @@ export const NavbarButton = ({
 			'bg-gradient-to-b from-blue-500 to-blue-700 text-white shadow-[0px_2px_0px_0px_rgba(255,255,255,0.3)_inset]'
 	}
 
+	// Dicast ke ComponentType biar TS tidak melebarkan union intrinsic element
+	// (React Three Fiber menambah banyak intrinsic element ke JSX namespace).
+	const Component = Tag as React.ComponentType<Record<string, unknown>>
+
 	return (
-		<Tag href={href || undefined} className={cn(baseStyles, variantStyles[variant], className)} {...props}>
+		<Component href={href || undefined} className={cn(baseStyles, variantStyles[variant], className)} {...props}>
 			{children}
-		</Tag>
+		</Component>
 	)
 }

@@ -88,3 +88,8 @@ bun.lockb
 
 # misc
 *.tsbuildinfo
+
+
+/.kiro/
+
+*.glb

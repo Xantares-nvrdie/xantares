@@ -1,17 +1,25 @@
-import { HoleBackground } from '@/components/ui/hole'
-import { Code2, Globe, Terminal } from 'lucide-react' 
+import { CharacterViewer } from '@/components/3d/character-viewer'
+import Silk from '@/components/Silk'
+import { Code2, Globe, Terminal } from 'lucide-react'
 
 export default function Home() {
 	return (
 		<main className="relative min-h-screen w-full bg-black text-white">
 			{/* SECTION 1: Hero Area (Full Screen) */}
 			<section className="relative h-screen w-full overflow-hidden">
-				<HoleBackground>
-					<div className="relative z-10 flex h-full flex-col items-center justify-center gap-4 text-center">
-						<h1 className="text-6xl font-bold tracking-tighter sm:text-8xl">FUCK YOU</h1>
-						<p className="text-xl font-medium text-neutral-400">ON PROCESS CMON</p>
-					</div>
-				</HoleBackground>
+				<div className="absolute inset-0 z-0 pointer-events-none">
+					<Silk speed={4} scale={1} color="#441f62" noiseIntensity={4.1} rotation={0} />
+				</div>
+
+				<div className="relative z-10 flex h-full flex-col items-center justify-center gap-4 text-center">
+					<h1 className="text-6xl font-bold tracking-tighter sm:text-8xl">FUCK YOU</h1>
+					<p className="text-xl font-medium text-neutral-400">ON PROCESS CMON</p>
+				</div>
+
+				{/* Kotak karakter 3D: kiri, center secara vertikal, kepalanya ngikut mouse */}
+				<div className="absolute top-1/2 left-6 z-20 hidden h-[420px] w-[300px] -translate-y-1/2 overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-950/40 backdrop-blur-sm md:block lg:left-10 lg:h-[480px] lg:w-[340px]">
+					<CharacterViewer />
+				</div>
 			</section>
 
 			{/* SECTION 2: Profile / About Me */}
