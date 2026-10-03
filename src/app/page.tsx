@@ -1,8 +1,51 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+
 import { CharacterViewer } from '@/components/3d/character-viewer'
+import ScrambledText from '@/components/ScrambledText'
 import Silk from '@/components/Silk'
 import { Code2, Globe, Terminal } from 'lucide-react'
 
+const WELCOME_MESSAGES = [
+	'Selamat datang',
+	'Welcome',
+	'Bienvenido',
+	'Bienvenue',
+	'Willkommen',
+	'Benvenuto',
+	'ようこそ',
+	'환영합니다'
+]
+
 export default function Home() {
+	const [welcomeIndex, setWelcomeIndex] = useState(0)
+	const [welcomeText, setWelcomeText] = useState('')
+
+	useEffect(() => {
+		const message = WELCOME_MESSAGES[welcomeIndex]
+		let characterIndex = 0
+		let timer: number
+
+		const typeNextCharacter = () => {
+			characterIndex += 1
+			setWelcomeText(message.slice(0, characterIndex))
+
+			if (characterIndex < message.length) {
+				timer = window.setTimeout(typeNextCharacter, 180)
+			} else {
+				timer = window.setTimeout(() => {
+					setWelcomeText('')
+					setWelcomeIndex((index) => (index + 1) % WELCOME_MESSAGES.length)
+				}, 1800)
+			}
+		}
+
+		timer = window.setTimeout(typeNextCharacter, 220)
+
+		return () => window.clearTimeout(timer)
+	}, [welcomeIndex])
+
 	return (
 		<main className="relative min-h-screen w-full bg-black text-white">
 			{/* SECTION 1: Hero Area (Full Screen) */}
@@ -16,9 +59,27 @@ export default function Home() {
 					<p className="text-xl font-medium text-neutral-400">ON PROCESS CMON</p>
 				</div>
 
-				{/* Kotak karakter 3D: kiri, center secara vertikal, kepalanya ngikut mouse */}
-				<div className="absolute top-1/2 left-6 z-20 hidden h-[420px] w-[300px] -translate-y-1/2 overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-950/40 backdrop-blur-sm md:block lg:left-10 lg:h-[480px] lg:w-[340px]">
-					<CharacterViewer />
+				{/* Sapaan multilingual di atas karakter 3D */}
+				<div className="absolute top-[54%] left-6 z-20 hidden w-[300px] -translate-y-1/2 md:block lg:left-10 lg:w-[340px]">
+					<div className="flex items-center gap-1" aria-live="polite">
+						<ScrambledText
+							key={welcomeText}
+							className="!m-0 !max-w-none !text-base font-semibold tracking-wide text-purple-100"
+							radius={60}
+							duration={1.2}
+							speed={0.5}
+							scrambleChars=".:"
+						>
+							{welcomeText}
+						</ScrambledText>
+						<span aria-hidden="true" className="typing-cursor inline-block text-purple-300">
+							|
+						</span>
+					</div>
+
+					<div className="h-[420px] overflow-hidden rounded-2xl border border-white/15 bg-transparent backdrop-blur-md lg:h-[480px]">
+						<CharacterViewer />
+					</div>
 				</div>
 			</section>
 
