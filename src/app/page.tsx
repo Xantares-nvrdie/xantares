@@ -65,6 +65,22 @@ export default function Home() {
 				</div>
 			</section>
 
+			{/* Fluid divider: jembatani hero gelap ke showcase lilac dengan gelombang yang nyata. */}
+			<div className="relative -mt-px h-28 overflow-hidden bg-black sm:h-36" aria-hidden="true">
+				<svg className="absolute inset-0 size-full" viewBox="0 0 1440 180" preserveAspectRatio="none">
+					<path
+						fill="#f3edff"
+						d="M0 82C154 35 294 123 478 78c187-46 311 10 482-26 178-37 306-70 480 7v121H0V82Z"
+					/>
+					<path
+						d="M0 82C154 35 294 123 478 78c187-46 311 10 482-26 178-37 306-70 480 7"
+						fill="none"
+						stroke="rgba(255,255,255,0.34)"
+						strokeWidth="1.5"
+					/>
+				</svg>
+			</div>
+
 			{/* SECTION 2: Project Showcase (ala emotion-agency.com) */}
 			<ProjectShowcase />
 

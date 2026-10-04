@@ -140,3 +140,119 @@
 		opacity: 0;
 	}
 }
+
+/* Editorial project showcase */
+.project-showcase {
+	background: #f3edff;
+}
+
+.project-showcase::before {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 0;
+	width: 100%;
+	height: clamp(7rem, 12vw, 11rem);
+	content: '';
+	background: radial-gradient(65% 80% at 50% 0%, rgb(255 255 255 / 54%), transparent 72%);
+	pointer-events: none;
+}
+
+.project-card {
+	--card-x: 50%;
+	--card-y: 50%;
+}
+
+.project-cover {
+	background-color: #ddd1f4;
+	box-shadow: 0 18px 40px -28px rgb(43 23 65 / 55%);
+	isolation: isolate;
+	transition: transform 700ms cubic-bezier(0.2, 0.7, 0, 1), box-shadow 700ms cubic-bezier(0.2, 0.7, 0, 1);
+}
+
+.project-card:hover .project-cover {
+	box-shadow: 0 28px 55px -29px rgb(43 23 65 / 62%);
+	transform: translateY(-5px);
+}
+
+.project-cover::before {
+	position: absolute;
+	inset: 0;
+	z-index: 2;
+	content: '';
+	background: radial-gradient(180px circle at var(--card-x) var(--card-y), rgb(255 255 255 / 27%), transparent 68%);
+	opacity: 0;
+	transition: opacity 350ms ease;
+}
+
+.project-card:hover .project-cover::before {
+	opacity: 1;
+}
+
+.project-cover-grain {
+	position: absolute;
+	inset: 0;
+	z-index: 3;
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E");
+	mix-blend-mode: soft-light;
+	opacity: 0.45;
+}
+
+.project-cover-shine {
+	position: absolute;
+	inset: -40%;
+	z-index: 4;
+	background: linear-gradient(105deg, transparent 42%, rgb(255 255 255 / 24%) 50%, transparent 58%);
+	transform: translateX(-40%) rotate(12deg);
+	transition: transform 800ms cubic-bezier(0.2, 0.7, 0, 1);
+}
+
+.project-card:hover .project-cover-shine {
+	transform: translateX(40%) rotate(12deg);
+}
+
+.project-card-arrow {
+	z-index: 5;
+	opacity: 0;
+	transform: translateY(8px) scale(0.92);
+	transition: opacity 250ms ease, transform 250ms ease;
+}
+
+.project-card:hover .project-card-arrow {
+	opacity: 1;
+	transform: translateY(0) scale(1);
+}
+
+.water-surface {
+	position: absolute;
+	z-index: 1;
+	width: 100%;
+	height: clamp(7rem, 14vw, 13rem);
+	pointer-events: none;
+	opacity: var(--water-strength, 0);
+	fill: none;
+	stroke: rgb(255 255 255 / 52%);
+	stroke-width: 1.25;
+	filter: drop-shadow(0 3px 7px rgb(81 45 142 / 14%));
+	transition: opacity 200ms ease;
+}
+
+.water-surface--top {
+	top: 0;
+}
+
+.water-surface--bottom {
+	bottom: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.project-cover,
+	.project-cover-shine,
+	.project-card-arrow {
+		transition: none;
+	}
+
+	.water-surface {
+		display: none;
+	}
+}
