@@ -1,6 +1,6 @@
 'use client'
 
-import { useGLTF, useProgress } from '@react-three/drei'
+import { Environment, useGLTF, useProgress } from '@react-three/drei'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import * as React from 'react'
 import * as THREE from 'three'
@@ -309,14 +309,30 @@ function CharacterViewer({ className, ...props }: React.ComponentProps<'div'>) {
 		<div className={cn('relative size-full', className)} {...props}>
 			<Canvas
 				camera={{ fov: 32, position: [0, 0, 4] }}
-				dpr={[1, 1.75]}
-				gl={{ antialias: true, alpha: true }}
+				dpr={[1, 2]}
+				gl={{
+					antialias: true,
+					alpha: true,
+					toneMapping: THREE.ACESFilmicToneMapping,
+					toneMappingExposure: 1.15
+				}}
 				// Canvas hanya visual, jadi disembunyikan dari screen reader.
 				aria-hidden="true"
 			>
-				<ambientLight intensity={1.1} />
-				<directionalLight position={[2, 3, 4]} intensity={2.2} />
-				<directionalLight position={[-3, 1, -2]} intensity={0.8} color="#a900ff" />
+				{/* Cahaya dasar supaya sisi gelap karakter tidak hitam pekat. */}
+				<ambientLight intensity={0.35} />
+
+				{/* Key light: sumber cahaya utama dari kiri atas, bikin dimensi wajah lebih kelihatan. */}
+				<directionalLight position={[-5, 7, 4]} intensity={3.4} color="#fff3e0" />
+
+				{/* Fill light: redup dari kanan bawah, biar sisi gelap tetap kelihatan detailnya. */}
+				<directionalLight position={[3, -1, 3]} intensity={0.5} color="#bcd9ff" />
+
+				{/* Rim light: dari belakang buat misahin siluet karakter dari background. */}
+				<directionalLight position={[-2, 2, -5]} intensity={1.4} color="#a900ff" />
+
+				{/* Environment map: nambahin reflection/ambient yang bikin material kelihatan lebih "HD". */}
+				<Environment preset="city" environmentIntensity={0.5} />
 
 				<React.Suspense fallback={null}>
 					<Character />
