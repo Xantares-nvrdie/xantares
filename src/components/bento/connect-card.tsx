@@ -7,7 +7,7 @@ const LINKS = [
 	{ name: 'GitHub', href: 'https://github.com', icon: IconBrandGithub },
 	{ name: 'LinkedIn', href: 'https://linkedin.com', icon: IconBrandLinkedin },
 	{ name: 'Instagram', href: 'https://instagram.com', icon: IconBrandInstagram },
-	{ name: 'Email', href: 'mailto:hello@example.com', icon: IconMail }
+	{ name: 'Email', href: 'mailto:bintangfajarputra@gmail.com', icon: IconMail }
 ]
 
 function ConnectCard({ className, ...props }: React.ComponentProps<'div'>) {

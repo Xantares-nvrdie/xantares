@@ -26,16 +26,17 @@ const HELP_TEXT = [
 /** Setiap command balikin teks output. `clear` ditangani khusus karena harus kosongin history. */
 const COMMANDS: Partial<Record<string, () => string>> = {
 	help: () => HELP_TEXT,
-	whoami: () => 'Mahasiswa Ilmu Komputer semester 2 di UPI, fokus ke Software Engineering & Cybersecurity.',
+	whoami: () =>
+		'Bintang Fajar Putra Pamungkas, mahasiswa Ilmu Komputer semester 5 di UPI Bandung. Mencari magang dan proyek freelance.',
 	skills: () =>
 		[
 			'Frontend : Next.js, React, Vue, Tailwind CSS',
-			'Backend  : Fastify, Go, PHP',
+			'Backend  : Elysia, Go, PHP',
 			'Belajar  : C/C++, Low-level programming, Web Exploitation'
 		].join('\n'),
-	education: () => 'Ilmu Komputer - Universitas Pendidikan Indonesia (UPI), semester 2.',
+	education: () => 'Ilmu Komputer - Universitas Pendidikan Indonesia (UPI) Bandung, semester 5.',
 	projects: () => "Scroll ke bawah buat liat section 'Showcase' ya 👇",
-	contact: () => 'Pilih salah satu icon di card "Let\'s Connect" buat hubungi saya.',
+	contact: () => 'Email: bintangfajarputra@gmail.com, atau kirim pesan lewat form di bagian bawah halaman.',
 	sudo: () => 'Permission denied: nice try 😏',
 	date: () => new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })
 }

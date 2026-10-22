@@ -19,7 +19,7 @@ function StatusCard({ className, ...props }: React.ComponentProps<'div'>) {
 				<span className="text-sm font-medium text-green-500">Available for Projects</span>
 			</div>
 			<p className="text-sm text-neutral-500">
-				Lagi semester 2 di UPI, terbuka buat kolaborasi project, magang, atau sekadar ngobrol soal code.
+				Semester 5 di UPI Bandung, terbuka untuk magang dan proyek freelance, onsite maupun remote.
 			</p>
 		</div>
 	)

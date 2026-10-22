@@ -256,3 +256,26 @@
 		display: none;
 	}
 }
+
+/* About: scroll reveal tanpa JS. Browser tanpa view timeline langsung menampilkan konten seperti biasa. */
+@keyframes reveal-up {
+	from {
+		opacity: 0;
+		transform: translateY(28px);
+	}
+
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+@supports (animation-timeline: view()) {
+	@media (prefers-reduced-motion: no-preference) {
+		.reveal {
+			animation: reveal-up linear both;
+			animation-timeline: view();
+			animation-range: entry 0% entry 55%;
+		}
+	}
+}

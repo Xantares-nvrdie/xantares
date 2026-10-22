@@ -23,13 +23,14 @@ const instrumentSerif = Instrument_Serif({
 })
 
 export const metadata: Metadata = {
-	title: 'Xantares',
-	description: 'Personal portfolio of Xantares — Computer Science student focused on Software Engineering & Cybersecurity.'
+	title: 'Bintang Fajar Putra Pamungkas | Xantares',
+	description:
+		'Portfolio Bintang Fajar Putra Pamungkas (Xantares), mahasiswa Ilmu Komputer UPI Bandung yang mencari magang dan proyek freelance di bidang Frontend, Fullstack, Backend, dan Data Science.'
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="en">
+		<html lang="id">
 			<body
 				className={`${syne.variable} ${geistMono.variable} ${instrumentSerif.variable} min-h-screen font-sans antialiased`}
 			>
