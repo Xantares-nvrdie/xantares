@@ -32,6 +32,7 @@ const COMMANDS: Partial<Record<string, () => string>> = {
 		[
 			'Frontend : Next.js, React, Vue, Tailwind CSS',
 			'Backend  : Elysia, Go, PHP',
+			'ML       : Python',
 			'Belajar  : C/C++, Low-level programming, Web Exploitation'
 		].join('\n'),
 	education: () => 'Ilmu Komputer - Universitas Pendidikan Indonesia (UPI) Bandung, semester 5.',

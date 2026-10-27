@@ -71,10 +71,12 @@ function GreetingCard({ className, ...props }: React.ComponentProps<'div'>) {
 
 			<div>
 				<h1 className="text-5xl font-bold tracking-tighter text-white sm:text-6xl lg:text-7xl">Xantares</h1>
-				<p className="mt-3 max-w-md text-base text-neutral-400 sm:text-lg">
-					Mahasiswa Ilmu Komputer, membangun antarmuka dan sistem dengan{' '}
-					<span className="text-white">Software Engineering</span> &amp;{' '}
-					<span className="text-white">Cybersecurity</span> sebagai fokus utama.
+				<p className="mt-3 max-w-md text-lg leading-snug text-neutral-300 lg:text-xl">
+					I build <span className="text-white">experiences people remember.</span>
+				</p>
+				<p className="mt-2 max-w-md text-sm text-neutral-400 lg:text-base">
+					<span className="text-white">Fullstack developer</span> dan{' '}
+					<span className="text-white">machine learning</span>. Mahasiswa Ilmu Komputer UPI, Bandung.
 				</p>
 			</div>
 		</div>

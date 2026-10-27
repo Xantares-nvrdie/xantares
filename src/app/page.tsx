@@ -1,12 +1,12 @@
 import { CharacterViewer } from '@/components/3d/character-viewer'
 import { AboutSection } from '@/components/about/about-section'
 import { BentoCard, BentoGrid } from '@/components/bento/bento-grid'
+import { CertificationCard } from '@/components/bento/certification-card'
 import { ConnectCard } from '@/components/bento/connect-card'
 import { ContactForm } from '@/components/contact/contact-form'
+import { GithubCard } from '@/components/bento/github-card'
 import { GreetingCard } from '@/components/bento/greeting-card'
-import { QuoteCard } from '@/components/bento/quote-card'
-import { StatusCard } from '@/components/bento/status-card'
-import { TechStackCard } from '@/components/bento/tech-stack-card'
+import { HorseCard } from '@/components/bento/horse-card'
 import { TerminalCard } from '@/components/bento/terminal-card'
 import Silk from '@/components/Silk'
 import { ProjectShowcase } from '@/components/showcase/project-showcase'
@@ -26,7 +26,7 @@ export default function Home() {
 				<div className="relative z-10 container mx-auto flex w-full flex-1 flex-col justify-center px-4 sm:px-8">
 					<WindowFrame>
 						<div className="p-3 sm:p-4">
-							<BentoGrid className="md:auto-rows-[130px] lg:auto-rows-[150px]">
+							<BentoGrid className="md:auto-rows-[150px]">
 								{/* Tulisan sapaan + nama, digedein jadi tile utama */}
 								<BentoCard colSpan={2} rowSpan={2} className="p-0">
 									<GreetingCard className="size-full border-none" />
@@ -45,20 +45,23 @@ export default function Home() {
 									<TerminalCard className="size-full border-none" />
 								</BentoCard>
 
-								<BentoCard>
-									<TechStackCard className="size-full border-none" />
+								{/* Sertifikasi yang sedang berjalan, border putus-putus = belum diraih */}
+								<BentoCard className="border-dashed border-neutral-700">
+									<CertificationCard className="flex-1" />
+								</BentoCard>
+
+								{/* Kuda ASCII berlari */}
+								<BentoCard className="p-0">
+									<HorseCard className="border-none" />
 								</BentoCard>
 
 								<BentoCard>
-									<StatusCard className="size-full border-none" />
+									<ConnectCard className="flex-1" />
 								</BentoCard>
 
+								{/* Aktivitas GitHub publik (di-cache sejam) */}
 								<BentoCard>
-									<ConnectCard className="size-full border-none" />
-								</BentoCard>
-
-								<BentoCard>
-									<QuoteCard className="size-full border-none" />
+									<GithubCard className="flex-1" />
 								</BentoCard>
 							</BentoGrid>
 						</div>

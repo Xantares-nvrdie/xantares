@@ -42,7 +42,7 @@ function BentoCard({
 	return (
 		<div
 			className={cn(
-				'relative flex min-h-[160px] flex-col overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900/40 backdrop-blur-sm transition-colors duration-300 hover:border-neutral-700',
+				'relative flex min-h-[160px] flex-col overflow-hidden md:min-h-0 rounded-2xl border border-neutral-800 bg-neutral-900/40 backdrop-blur-sm transition-colors duration-300 hover:border-neutral-700',
 				colClass,
 				rowClass,
 				className
