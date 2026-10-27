@@ -31,14 +31,14 @@ const COMMANDS: Partial<Record<string, () => string>> = {
 	skills: () =>
 		[
 			'Frontend : Next.js, React, Vue, Tailwind CSS',
-			'Backend  : Elysia, Go, PHP',
+			'Backend  : Elysia, Go, Express, Fastify',
 			'ML       : Python',
-			'Belajar  : C/C++, Low-level programming, Web Exploitation'
+			'Studied  : C, C++, Java, PHP'
 		].join('\n'),
 	education: () => 'Ilmu Komputer - Universitas Pendidikan Indonesia (UPI) Bandung, semester 5.',
-	projects: () => "Scroll ke bawah buat liat section 'Showcase' ya 👇",
+	projects: () => "Scroll ke bawah buat liat section 'Showcase'",
 	contact: () => 'Email: bintangfajarputra@gmail.com, atau kirim pesan lewat form di bagian bawah halaman.',
-	sudo: () => 'Permission denied: nice try 😏',
+	sudo: () => 'Permission denied: nice try HAHA',
 	date: () => new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })
 }
 
