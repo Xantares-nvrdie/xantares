@@ -1,43 +1,95 @@
 'use client'
 
 import * as React from 'react'
+import Image from 'next/image'
 import { IconArrowUpRight } from '@tabler/icons-react'
 
+import { MetallicPaint } from '@/components/ui/metallic-paint'
 import { cn } from '@/lib/utils'
 
 type Project = {
 	title: string
 	tags: string[]
 	href: string
-	/** Warna cover placeholder; ganti ke screenshot asli nanti. */
+	/** Warna latar cover. */
 	color: string
+	/** Isi cover (logo atau visual proyek). Kosong = cover warna solid sebagai placeholder. */
+	cover?: React.ReactNode
 	layout: string
 }
 
 /**
  * Posisi setiap karya sengaja ditentukan sendiri, bukan dibagi rata per kolom.
- * Cover untuk sekarang pakai warna solid sebagai placeholder.
+ * Tiga karya teratas sudah asli; sisanya masih placeholder berwarna solid.
  */
 const PROJECTS: Project[] = [
 	{
-		title: 'E Promo',
-		tags: ['UI/UX', 'Frontend', 'WebGL'],
-		href: '#',
-		color: '#4c2a8f',
+		title: 'TenderSeal',
+		tags: ['Fullstack', 'Blockchain', 'Cryptography'],
+		href: 'https://tendersealkupie.vercel.app/',
+		color: '#0a0a0a',
+		cover: (
+			<>
+				{/* Glow emerald, warna aksen brand TenderSeal */}
+				<div
+					className="absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_45%,rgb(16_185_129/0.28),transparent_70%)]"
+					aria-hidden="true"
+				/>
+				<div className="relative size-full">
+					<Image
+						src="/projects/tenderseal.png"
+						alt=""
+						fill
+						sizes="(min-width: 768px) 25vw, 70vw"
+						className="object-contain invert"
+					/>
+				</div>
+			</>
+		),
 		layout: 'md:col-span-3 md:col-start-1 md:row-span-5 md:row-start-1'
 	},
 	{
-		title: 'Flashform',
-		tags: ['UI/UX', 'Frontend', 'WebGL'],
-		href: '#',
-		color: '#1d2a0e',
+		title: 'Inklusa',
+		tags: ['Fullstack', 'EdTech'],
+		href: 'https://inklusa-delta.vercel.app/',
+		color: '#dff1ed',
+		cover: (
+			<div className="relative size-full">
+				<Image
+					src="/projects/inklusa.png"
+					alt=""
+					fill
+					sizes="(min-width: 768px) 17vw, 70vw"
+					className="object-contain"
+				/>
+			</div>
+		),
 		layout: 'md:col-span-2 md:col-start-6 md:row-span-3 md:row-start-4'
 	},
 	{
-		title: 'Sofia Shcherbak',
-		tags: ['UI/UX', 'Frontend', 'WebGL'],
-		href: '#',
-		color: '#8d8582',
+		title: 'Lost & Found',
+		tags: ['Fullstack', 'Next.js', 'Elysia'],
+		href: 'https://github.com/Xantares-nvrdie/lost-and-found',
+		color: '#120b1d',
+		// Logo cairan logam yang bergerak, parameternya sama dengan hero di repo OSTRICT.
+		// (tintColor di sana "#562ba4ff" yang 8 digit, sehingga efektifnya putih.)
+		cover: (
+			<MetallicPaint
+				imageSrc="/projects/lost-and-found.png"
+				speed={0.25}
+				scale={2.5}
+				refraction={1}
+				liquid={0.6}
+				chromaticSpread={2}
+				angle={10}
+				brightness={1}
+				contrast={1.1}
+				tintColor="#ffffff"
+				fallbackClassName="invert"
+				// Gambar logonya punya ruang kosong di sekeliling, jadi canvas dibuat lebih lebar dari area cover.
+				className="w-[130%] max-w-[28rem] shrink-0"
+			/>
+		),
 		layout: 'md:col-span-3 md:col-start-10 md:row-span-5 md:row-start-1'
 	},
 	{
@@ -70,9 +122,13 @@ function ProjectCard({ project }: { project: Project }) {
 		event.currentTarget.style.setProperty('--card-y', `${event.clientY - bounds.top}px`)
 	}
 
+	const external = project.href.startsWith('http')
+
 	return (
 		<a
 			href={project.href}
+			target={external ? '_blank' : undefined}
+			rel={external ? 'noopener noreferrer' : undefined}
 			onPointerMove={handlePointerMove}
 			className={cn('project-card group flex h-full flex-col gap-3', project.layout)}
 		>
@@ -80,6 +136,11 @@ function ProjectCard({ project }: { project: Project }) {
 				className="project-cover relative aspect-[4/5] min-h-[200px] flex-1 overflow-hidden rounded-[22px] md:aspect-auto"
 				style={{ backgroundColor: project.color }}
 			>
+				{project.cover && (
+					<div className="absolute inset-0 z-[1] flex items-center justify-center p-[16%]">
+						{project.cover}
+					</div>
+				)}
 				<div className="project-cover-grain" aria-hidden="true" />
 				<div className="project-cover-shine" aria-hidden="true" />
 				<span className="project-card-arrow absolute right-4 bottom-4 flex size-10 items-center justify-center rounded-full bg-[#f6f0ff]/90 text-[#281340]">
@@ -91,7 +152,9 @@ function ProjectCard({ project }: { project: Project }) {
 				<span className="font-mono text-[10px] leading-none tracking-[0.09em] text-[#523d69] uppercase">
 					{project.tags.join(' / ')}
 				</span>
-				<span className="font-serif text-[25px] leading-none text-[#2b1741] sm:text-[28px]">{project.title}</span>
+				<span className="font-serif text-[25px] leading-none text-[#2b1741] sm:text-[28px]">
+					{project.title}
+				</span>
 			</div>
 		</a>
 	)
@@ -139,13 +202,35 @@ function ProjectShowcase({ className, ...props }: React.ComponentProps<'section'
 			{...props}
 		>
 			{/* Riak tipis di batas atas/bawah hanya muncul saat section ini sedang di-scroll. */}
-			<svg className="water-surface water-surface--top" viewBox="0 0 1440 180" preserveAspectRatio="none" aria-hidden="true">
+			<svg
+				className="water-surface water-surface--top"
+				viewBox="0 0 1440 180"
+				preserveAspectRatio="none"
+				aria-hidden="true"
+			>
 				<defs>
 					<filter id="showcase-water-ripple" x="-10%" y="-60%" width="120%" height="220%">
-						<feTurbulence type="turbulence" baseFrequency="0.008 0.045" numOctaves="2" seed="7" result="noise">
-							<animate attributeName="baseFrequency" dur="7s" values="0.008 0.045;0.014 0.025;0.008 0.045" repeatCount="indefinite" />
+						<feTurbulence
+							type="turbulence"
+							baseFrequency="0.008 0.045"
+							numOctaves="2"
+							seed="7"
+							result="noise"
+						>
+							<animate
+								attributeName="baseFrequency"
+								dur="7s"
+								values="0.008 0.045;0.014 0.025;0.008 0.045"
+								repeatCount="indefinite"
+							/>
 						</feTurbulence>
-						<feDisplacementMap in="SourceGraphic" in2="noise" scale="18" xChannelSelector="R" yChannelSelector="G" />
+						<feDisplacementMap
+							in="SourceGraphic"
+							in2="noise"
+							scale="18"
+							xChannelSelector="R"
+							yChannelSelector="G"
+						/>
 					</filter>
 				</defs>
 				<g filter="url(#showcase-water-ripple)">
@@ -154,7 +239,12 @@ function ProjectShowcase({ className, ...props }: React.ComponentProps<'section'
 					<path d="M-80 158 C170 109 344 197 563 151 S950 104 1180 158 S1375 197 1520 143" />
 				</g>
 			</svg>
-			<svg className="water-surface water-surface--bottom" viewBox="0 0 1440 180" preserveAspectRatio="none" aria-hidden="true">
+			<svg
+				className="water-surface water-surface--bottom"
+				viewBox="0 0 1440 180"
+				preserveAspectRatio="none"
+				aria-hidden="true"
+			>
 				<g filter="url(#showcase-water-ripple)">
 					<path d="M-80 25 C180 83 326 -33 548 27 S956 82 1166 25 S1358 -28 1520 45" />
 					<path d="M-80 59 C142 105 370 7 590 66 S940 109 1160 59 S1370 8 1520 79" />
