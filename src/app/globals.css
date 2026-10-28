@@ -124,6 +124,12 @@
 		@apply bg-background text-foreground;
 		margin: 0;
 	}
+	/* Link anchor di navbar (#home, #projects, ...) meluncur halus ke section-nya. */
+	@media (prefers-reduced-motion: no-preference) {
+		html {
+			scroll-behavior: smooth;
+		}
+	}
 }
 
 .typing-cursor {

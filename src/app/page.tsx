@@ -16,7 +16,10 @@ export default function Home() {
 	return (
 		<main className="relative min-h-screen w-full bg-black text-white">
 			{/* SECTION 1: Hero Bento Grid, dipaskan dalam satu viewport (h-screen) dan digeser ke atas */}
-			<section className="relative flex h-screen w-full flex-col overflow-hidden pt-20 pb-6 sm:pt-24 sm:pb-8">
+			<section
+				id="home"
+				className="relative flex h-screen w-full flex-col overflow-hidden pt-20 pb-6 sm:pt-24 sm:pb-8"
+			>
 				<div className="pointer-events-none absolute inset-0 z-0">
 					<Silk speed={4} scale={1} color="#441f62" noiseIntensity={4.1} rotation={0} />
 				</div>
@@ -50,7 +53,7 @@ export default function Home() {
 									<CertificationCard className="flex-1" />
 								</BentoCard>
 
-								{/* Kuda ASCII berlari */}
+								{/* Kuda dot-matrix berlari dengan efek glitch */}
 								<BentoCard className="p-0">
 									<HorseCard className="border-none" />
 								</BentoCard>
@@ -86,7 +89,7 @@ export default function Home() {
 			</div>
 
 			{/* SECTION 2: Project Showcase (ala emotion-agency.com) */}
-			<ProjectShowcase />
+			<ProjectShowcase id="projects" />
 
 			{/* SECTION 3: Profile / About Me */}
 			<AboutSection />
@@ -96,7 +99,10 @@ export default function Home() {
 				<div className="container mx-auto px-6">
 					<div className="grid gap-12 border-t border-neutral-800 pt-24 lg:grid-cols-2 lg:items-start">
 						<div className="space-y-6">
-							<p className="font-mono text-xs tracking-[0.09em] text-purple-300 uppercase" aria-hidden="true">
+							<p
+								className="font-mono text-xs tracking-[0.09em] text-purple-300 uppercase"
+								aria-hidden="true"
+							>
 								{'// contact'}
 							</p>
 							<h2

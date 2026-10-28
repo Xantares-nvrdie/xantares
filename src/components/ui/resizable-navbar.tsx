@@ -1,5 +1,5 @@
 'use client'
-import Image from 'next/image'
+import { LogoStar } from '@/components/brand/logo'
 import { cn } from '@/lib/utils'
 import { IconMenu2, IconX } from '@tabler/icons-react'
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'motion/react'
@@ -206,15 +206,12 @@ export const MobileNavToggle = ({ isOpen, onClick }: { isOpen: boolean; onClick:
 
 export const NavbarLogo = () => {
 	return (
-		<a href="#" className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-white">
-			<Image
-				src="https://assets.aceternity.com/logo-dark.png"
-				alt="logo"
-				width={30}
-				height={30}
-				unoptimized
-			/>
-			<span className="font-medium text-white">Startup</span>
+		<a
+			href="#home"
+			className="group relative z-20 mr-4 flex items-center gap-2.5 rounded-full px-2 py-1 text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400"
+		>
+			<LogoStar className="size-7 transition-transform duration-500 motion-safe:group-hover:rotate-45" />
+			<span className="text-lg font-bold tracking-tight">Xantares</span>
 		</a>
 	)
 }

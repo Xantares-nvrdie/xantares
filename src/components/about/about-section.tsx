@@ -21,7 +21,10 @@ function AboutSection({ className, ...props }: React.ComponentProps<'section'>) 
 			<section
 				id="about"
 				aria-labelledby="about-heading"
-				className={cn('relative overflow-hidden bg-neutral-950 pt-10 pb-24 text-white sm:pt-14', className)}
+				className={cn(
+					'relative scroll-mt-20 overflow-hidden bg-neutral-950 pt-10 pb-24 text-white sm:pt-14',
+					className
+				)}
 				{...props}
 			>
 				<div

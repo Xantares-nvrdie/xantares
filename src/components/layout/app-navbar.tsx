@@ -13,10 +13,12 @@ import {
 	NavbarLogo
 } from '@/components/ui/resizable-navbar'
 
+/** Anchor ke section di halaman utama, scroll-nya dihaluskan lewat `scroll-behavior` di globals.css. */
 const navItems = [
-	{ name: 'Home', link: '/' },
-	{ name: 'Features', link: '/features' },
-	{ name: 'About Me', link: '/about' }
+	{ name: 'Home', link: '#home' },
+	{ name: 'Projects', link: '#projects' },
+	{ name: 'About Me', link: '#about' },
+	{ name: 'Contact', link: '#contact' }
 ]
 
 export default function AppNavbar() {
@@ -27,9 +29,7 @@ export default function AppNavbar() {
 			<NavBody>
 				<NavbarLogo />
 				<NavItems items={navItems} />
-
 			</NavBody>
-
 
 			<MobileNav>
 				<MobileNavHeader>
