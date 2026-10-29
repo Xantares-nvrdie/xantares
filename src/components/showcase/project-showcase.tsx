@@ -6,11 +6,15 @@ import { IconArrowUpRight } from '@tabler/icons-react'
 
 import { MetallicPaint } from '@/components/ui/metallic-paint'
 import { cn } from '@/lib/utils'
+import { bebasNeue, spaceGrotesk } from './fonts'
 
 type Project = {
 	title: string
 	tags: string[]
-	href: string
+	/** Ringkasan singkat (sekitar 120 karakter supaya muat di kartu kecil). Muncul saat kartu di-hover. */
+	description?: string
+	/** Tautan proyek. Kosong = kartu tampil tanpa tautan (misalnya repo privat). */
+	href?: string
 	/** Warna latar cover. */
 	color: string
 	/** Isi cover (logo atau visual proyek). Kosong = cover warna solid sebagai placeholder. */
@@ -26,6 +30,8 @@ const PROJECTS: Project[] = [
 	{
 		title: 'TenderSeal',
 		tags: ['Fullstack', 'Blockchain', 'Cryptography'],
+		description:
+			'E-procurement dengan penawaran tertutup. Harga dienkripsi di browser, dikunci lewat skema commit-reveal, dan dicatat di smart contract Ethereum.',
 		href: 'https://tendersealkupie.vercel.app/',
 		color: '#0a0a0a',
 		cover: (
@@ -51,6 +57,8 @@ const PROJECTS: Project[] = [
 	{
 		title: 'Inklusa',
 		tags: ['Fullstack', 'EdTech'],
+		description:
+			'Asisten guru kelas inklusif: mengubah hambatan belajar yang diamati jadi intervensi terstruktur, lalu memantau hasilnya.',
 		href: 'https://inklusa-delta.vercel.app/',
 		color: '#dff1ed',
 		cover: (
@@ -69,6 +77,8 @@ const PROJECTS: Project[] = [
 	{
 		title: 'Lost & Found',
 		tags: ['Fullstack', 'Next.js', 'Elysia'],
+		description:
+			'Platform untuk melaporkan dan mencari barang hilang, yang mempertemukan barang temuan dengan pemiliknya secara cepat dan aman.',
 		href: 'https://github.com/Xantares-nvrdie/lost-and-found',
 		color: '#120b1d',
 		// Logo cairan logam yang bergerak, parameternya sama dengan hero di repo OSTRICT.
@@ -93,17 +103,55 @@ const PROJECTS: Project[] = [
 		layout: 'md:col-span-3 md:col-start-10 md:row-span-5 md:row-start-1'
 	},
 	{
-		title: 'Relive by Coco',
-		tags: ['UI/UX', 'Frontend', 'E-commerce'],
-		href: '#',
-		color: '#b94223',
+		title: 'NusaRoute',
+		tags: ['Microservices', 'Go', 'Kafka'],
+		description:
+			'Platform logistik dari 10 microservice Go yang terhubung lewat Kafka: cek tarif, dispatch kurir otomatis, dan pelacakan paket.',
+		href: 'https://github.com/Iqbaalz28/NusaRoute',
+		color: '#fdfbf7',
+		// Logo aslinya digambar lewat CSS di navbar NusaRoute: belah ketupat coral + wordmark Space Grotesk.
+		cover: (
+			<>
+				<div
+					className="absolute inset-0 bg-[radial-gradient(60%_45%_at_50%_50%,rgb(255_107_74/0.16),transparent_70%)]"
+					aria-hidden="true"
+				/>
+				<div
+					className={cn(
+						spaceGrotesk.className,
+						'relative flex items-center gap-[0.45em] text-[14cqw] leading-none font-bold tracking-tight text-[#2d3142]'
+					)}
+				>
+					<span className="size-[0.62em] shrink-0 rotate-45 rounded-[0.12em] bg-[#ff6b4a] shadow-[0_10px_24px_-6px_rgb(255_107_74/0.7)] transition-transform duration-700 group-hover:rotate-[135deg]" />
+					NusaRoute
+				</div>
+			</>
+		),
 		layout: 'md:col-span-3 md:col-start-1 md:row-span-4 md:row-start-8'
 	},
 	{
-		title: 'Secure Auth Service',
-		tags: ['Go', 'JWT', 'Backend'],
-		href: '#',
-		color: '#145f88',
+		title: 'Ozpeck',
+		tags: ['Fullstack', 'E-commerce'],
+		description:
+			'E-commerce paket perlengkapan kuliah untuk mahasiswa baru, dengan mesin promo, pencarian Meilisearch, dan dashboard admin.',
+		// Repo-nya privat dan belum ada URL live, jadi kartu ini tidak bertaut ke mana pun.
+		color: '#f5f2eb',
+		// Wordmark brutalist aslinya: OZPECK (Bebas Neue) dengan titik merah, border tebal, bayangan keras.
+		cover: (
+			<div className="flex flex-col items-center gap-[7cqw]">
+				<span
+					className={cn(
+						bebasNeue.className,
+						'border-[5px] border-[#0a0a0a] bg-[#faf8f3] px-[0.28em] pt-[0.14em] pb-[0.04em] text-[25cqw] leading-none text-[#0a0a0a] shadow-[8px_8px_0_#0a0a0a] transition-transform duration-300 group-hover:-translate-x-0.5 group-hover:-translate-y-0.5'
+					)}
+				>
+					OZPECK<span className="text-[#e53935]">.</span>
+				</span>
+				<span className="font-mono text-[5cqw] font-bold tracking-[0.2em] whitespace-nowrap text-[#0a0a0a] uppercase">
+					Campus Starter Pack
+				</span>
+			</div>
+		),
 		layout: 'md:col-span-3 md:col-start-5 md:row-span-4 md:row-start-10'
 	},
 	{
@@ -116,36 +164,37 @@ const PROJECTS: Project[] = [
 ]
 
 function ProjectCard({ project }: { project: Project }) {
-	const handlePointerMove = (event: React.PointerEvent<HTMLAnchorElement>) => {
+	const handlePointerMove = (event: React.PointerEvent<HTMLElement>) => {
 		const bounds = event.currentTarget.getBoundingClientRect()
 		event.currentTarget.style.setProperty('--card-x', `${event.clientX - bounds.left}px`)
 		event.currentTarget.style.setProperty('--card-y', `${event.clientY - bounds.top}px`)
 	}
 
-	const external = project.href.startsWith('http')
-
-	return (
-		<a
-			href={project.href}
-			target={external ? '_blank' : undefined}
-			rel={external ? 'noopener noreferrer' : undefined}
-			onPointerMove={handlePointerMove}
-			className={cn('project-card group flex h-full flex-col gap-3', project.layout)}
-		>
+	const className = cn(
+		'project-card group flex h-full flex-col gap-3 rounded-[22px] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#6d28d9]',
+		project.layout
+	)
+	const content = (
+		<>
 			<div
-				className="project-cover relative aspect-[4/5] min-h-[200px] flex-1 overflow-hidden rounded-[22px] md:aspect-auto"
+				// inline-size container: ukuran teks panel deskripsi (cqw) mengikuti lebar kartu.
+				className="project-cover relative aspect-[4/5] min-h-[200px] flex-1 overflow-hidden rounded-[22px] [container-type:inline-size] md:aspect-auto"
 				style={{ backgroundColor: project.color }}
 			>
 				{project.cover && (
-					<div className="absolute inset-0 z-[1] flex items-center justify-center p-[16%]">
+					// Container query: isi cover (misalnya wordmark) bisa diskalakan dengan unit cqw mengikuti lebar kartu.
+					<div className="absolute inset-0 z-[1] flex items-center justify-center p-[16%] [container-type:inline-size]">
 						{project.cover}
 					</div>
 				)}
 				<div className="project-cover-grain" aria-hidden="true" />
 				<div className="project-cover-shine" aria-hidden="true" />
-				<span className="project-card-arrow absolute right-4 bottom-4 flex size-10 items-center justify-center rounded-full bg-[#f6f0ff]/90 text-[#281340]">
-					<IconArrowUpRight className="size-5" />
-				</span>
+				{project.href && (
+					<span className="project-card-arrow absolute top-4 right-4 flex size-10 items-center justify-center rounded-full bg-[#f6f0ff]/90 text-[#281340]">
+						<IconArrowUpRight className="size-5" />
+					</span>
+				)}
+				{project.description && <p className="project-card-info">{project.description}</p>}
 			</div>
 
 			<div className="flex flex-col gap-1 px-0.5">
@@ -155,7 +204,33 @@ function ProjectCard({ project }: { project: Project }) {
 				<span className="font-serif text-[25px] leading-none text-[#2b1741] sm:text-[28px]">
 					{project.title}
 				</span>
+				{project.description && (
+					<p className="project-card-caption mt-1.5 max-w-prose text-sm leading-relaxed text-[#523d69]">
+						{project.description}
+					</p>
+				)}
 			</div>
+		</>
+	)
+
+	if (!project.href) {
+		return (
+			<div onPointerMove={handlePointerMove} className={className}>
+				{content}
+			</div>
+		)
+	}
+
+	const external = project.href.startsWith('http')
+	return (
+		<a
+			href={project.href}
+			target={external ? '_blank' : undefined}
+			rel={external ? 'noopener noreferrer' : undefined}
+			onPointerMove={handlePointerMove}
+			className={className}
+		>
+			{content}
 		</a>
 	)
 }

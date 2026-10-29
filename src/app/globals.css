@@ -220,13 +220,62 @@
 .project-card-arrow {
 	z-index: 5;
 	opacity: 0;
-	transform: translateY(8px) scale(0.92);
+	transform: translateY(-8px) scale(0.92);
 	transition: opacity 250ms ease, transform 250ms ease;
 }
 
-.project-card:hover .project-card-arrow {
+.project-card:hover .project-card-arrow,
+.project-card:focus-visible .project-card-arrow {
 	opacity: 1;
 	transform: translateY(0) scale(1);
+}
+
+/*
+ * Deskripsi proyek. Di perangkat yang bisa hover, deskripsi muncul sebagai panel kaca yang naik dari bawah
+ * cover saat kartu di-hover atau difokus keyboard. Di layar sentuh (tanpa hover) panel disembunyikan dan
+ * deskripsi tampil sebagai teks biasa di bawah judul. Hanya salah satu yang tampil, jadi pembaca layar
+ * tidak membacanya dua kali.
+ */
+.project-card-info {
+	display: none;
+}
+
+@media (hover: hover) {
+	.project-card-info {
+		position: absolute;
+		right: 0.75rem;
+		bottom: 0.75rem;
+		left: 0.75rem;
+		z-index: 5;
+		display: block;
+		max-height: calc(100% - 4.5rem);
+		overflow: hidden;
+		padding: 0.85rem 1rem;
+		border: 1px solid rgb(255 255 255 / 12%);
+		border-radius: 16px;
+		background: rgb(20 11 33 / 78%);
+		box-shadow: 0 14px 30px -18px rgb(10 4 20 / 80%);
+		color: #f3edff;
+		font-size: clamp(0.72rem, 6cqw, 0.85rem);
+		line-height: 1.45;
+		opacity: 0;
+		transform: translateY(calc(100% + 0.75rem));
+		transition:
+			opacity 300ms ease,
+			transform 550ms cubic-bezier(0.2, 0.7, 0, 1);
+		-webkit-backdrop-filter: blur(14px);
+		backdrop-filter: blur(14px);
+	}
+
+	.project-card:hover .project-card-info,
+	.project-card:focus-visible .project-card-info {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.project-card-caption {
+		display: none;
+	}
 }
 
 .water-surface {
@@ -254,7 +303,8 @@
 @media (prefers-reduced-motion: reduce) {
 	.project-cover,
 	.project-cover-shine,
-	.project-card-arrow {
+	.project-card-arrow,
+	.project-card-info {
 		transition: none;
 	}
 
